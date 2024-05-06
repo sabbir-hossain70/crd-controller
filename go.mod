@@ -4,7 +4,6 @@ go 1.22.0
 
 require (
 	github.com/sabbir-hossain70/crd v0.0.0-20240506065954-6bc9b25796dd
-	k8s.io/apiextensions-apiserver v0.30.0
 	k8s.io/apimachinery v0.30.0
 	k8s.io/client-go v0.30.0
 	k8s.io/code-generator v0.30.0
