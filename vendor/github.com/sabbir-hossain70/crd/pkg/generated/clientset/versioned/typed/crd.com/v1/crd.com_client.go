@@ -20,8 +20,8 @@ package v1
 import (
 	"net/http"
 
-	v1 "github.com/sabbir-hossain70/crd-controller/pkg/apis/crd.com/v1"
-	"github.com/sabbir-hossain70/crd-controller/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/sabbir-hossain70/crd/pkg/apis/crd.com/v1"
+	"github.com/sabbir-hossain70/crd/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

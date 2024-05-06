@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"flag"
-	myv1 "github.com/sabbir-hossain70/crd/pkg/apis/crd.com/v1"
-	sbclientset "github.com/sabbir-hossain70/crd/pkg/generated/clientset/versioned"
+	myv1 "github.com/sabbir-hossain70/crd-controller/pkg/apis/crd.com/v1"
+	sbclientset "github.com/sabbir-hossain70/crd-controller/pkg/generated/clientset/versioned"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	crdclientset "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

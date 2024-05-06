@@ -1,7 +1,7 @@
 package v1
 
 import (
-	crd_com "github.com/sabbir-hossain70/crd-controller/pkg/apis/crd.com"
+	crd_com "github.com/sabbir-hossain70/crd/pkg/apis/crd.com"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"

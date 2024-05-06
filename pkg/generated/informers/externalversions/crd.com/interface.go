@@ -18,8 +18,8 @@ limitations under the License.
 package crd
 
 import (
-	v1 "github.com/sabbir-hossain70/crd/pkg/generated/informers/externalversions/crd.com/v1"
-	internalinterfaces "github.com/sabbir-hossain70/crd/pkg/generated/informers/externalversions/internalinterfaces"
+	v1 "github.com/sabbir-hossain70/crd-controller/pkg/generated/informers/externalversions/crd.com/v1"
+	internalinterfaces "github.com/sabbir-hossain70/crd-controller/pkg/generated/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to each of this group's versions.

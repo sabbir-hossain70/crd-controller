@@ -22,9 +22,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/sabbir-hossain70/crd/pkg/generated/clientset/versioned"
-	crdcom "github.com/sabbir-hossain70/crd/pkg/generated/informers/externalversions/crd.com"
-	internalinterfaces "github.com/sabbir-hossain70/crd/pkg/generated/informers/externalversions/internalinterfaces"
+	versioned "github.com/sabbir-hossain70/crd-controller/pkg/generated/clientset/versioned"
+	crdcom "github.com/sabbir-hossain70/crd-controller/pkg/generated/informers/externalversions/crd.com"
+	internalinterfaces "github.com/sabbir-hossain70/crd-controller/pkg/generated/informers/externalversions/internalinterfaces"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
