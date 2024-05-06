@@ -41,12 +41,20 @@ func main() {
 		panic(err.Error())
 	}
 
-	kubeInformationFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
+	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
 
-	exampleInformationFactor := myinformers.NewSharedInformerFactory(exampleClient, time.Second*30)
+	exampleInformerFactor := myinformers.NewSharedInformerFactory(exampleClient, time.Second*30)
 
 	ctrl := controller.NewController(kubeClient, exampleClient,
-		kubeInformationFactory.Apps().V1().Deployments(),
-		exampleInformationFactor.Crd().V1().Sabbirs())
-	fmt.Println("ctrl: ", ctrl)
+		kubeInformerFactory.Apps().V1().Deployments(),
+		exampleInformerFactor.Crd().V1().Sabbirs())
+
+	stopCh := make(chan struct{})
+	kubeInformerFactory.Start(stopCh)
+	exampleInformerFactor.Start(stopCh)
+	//print(ctrl)
+	if err = ctrl.Run(2, stopCh); err != nil {
+		log.Fatal(err)
+	}
+
 }

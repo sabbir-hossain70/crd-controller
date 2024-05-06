@@ -18,6 +18,7 @@ limitations under the License.
 package externalversions
 
 import (
+	"fmt"
 	reflect "reflect"
 	sync "sync"
 	time "time"
@@ -121,6 +122,7 @@ func NewSharedInformerFactoryWithOptions(client versioned.Interface, defaultResy
 }
 
 func (f *sharedInformerFactory) Start(stopCh <-chan struct{}) {
+	fmt.Print("here inside factory.go Start\n")
 	f.lock.Lock()
 	defer f.lock.Unlock()
 
