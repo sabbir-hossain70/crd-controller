@@ -19,6 +19,7 @@ package externalversions
 
 import (
 	"fmt"
+	"k8s.io/klog/v2"
 	reflect "reflect"
 	sync "sync"
 	time "time"
@@ -136,7 +137,9 @@ func (f *sharedInformerFactory) Start(stopCh <-chan struct{}) {
 			// We need a new variable in each loop iteration,
 			// otherwise the goroutine would use the loop variable
 			// and that keeps changing.
+			klog.Infoln("kladjdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
 			informer := informer
+			klog.Infoln(informerType.String())
 			go func() {
 				defer f.wg.Done()
 				informer.Run(stopCh)

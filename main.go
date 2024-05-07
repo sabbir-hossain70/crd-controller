@@ -36,7 +36,8 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	exampleClient, err := clientset.NewForConfig(config)
+	var exampleClient clientset.Interface
+	exampleClient, err = clientset.NewForConfig(config)
 	if err != nil {
 		panic(err.Error())
 	}
