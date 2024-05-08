@@ -42,9 +42,9 @@ func main() {
 		panic(err.Error())
 	}
 
-	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
+	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*10)
 
-	exampleInformerFactor := myinformers.NewSharedInformerFactory(exampleClient, time.Second*30)
+	exampleInformerFactor := myinformers.NewSharedInformerFactory(exampleClient, time.Second*10)
 
 	ctrl := controller.NewController(kubeClient, exampleClient,
 		kubeInformerFactory.Apps().V1().Deployments(),
@@ -57,5 +57,6 @@ func main() {
 	if err = ctrl.Run(2, stopCh); err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("Main function terminated +++++++++++")
 
 }

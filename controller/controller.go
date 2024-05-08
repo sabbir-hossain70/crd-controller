@@ -54,6 +54,7 @@ func NewController(kubeclientset kubernetes.Interface, sampleClientset clientset
 		AddFunc: ctrl.enqueueSabbir,
 		UpdateFunc: func(old, new interface{}) {
 			fmt.Println("UpdateFunc called")
+
 			ctrl.enqueueSabbir(new)
 		},
 		DeleteFunc: func(obj interface{}) {
@@ -66,6 +67,8 @@ func NewController(kubeclientset kubernetes.Interface, sampleClientset clientset
 }
 
 func (c *Controller) enqueueSabbir(obj interface{}) {
+	fmt.Println("enqueueSabbir called")
+
 	log.Println("Sabbir Controller: Enqueuing Sabbir")
 	key, err := cache.MetaNamespaceKeyFunc(obj)
 	if err != nil {
@@ -77,6 +80,7 @@ func (c *Controller) enqueueSabbir(obj interface{}) {
 }
 
 func (c *Controller) Run(workers int, stopCh <-chan struct{}) error {
+
 	defer utilruntime.HandleCrash()
 	defer c.workQueue.ShutDown()
 
@@ -94,7 +98,6 @@ func (c *Controller) Run(workers int, stopCh <-chan struct{}) error {
 
 	log.Println("Started workers")
 	<-stopCh
-
 	log.Println("Shutting down workers")
 
 	return nil
@@ -102,12 +105,14 @@ func (c *Controller) Run(workers int, stopCh <-chan struct{}) error {
 
 func (c *Controller) runworker() {
 	for c.ProcessNextItem() {
+
 	}
 }
 
 func (c *Controller) ProcessNextItem() bool {
-
+	fmt.Println("ProcessNextItem called")
 	obj, shutdown := c.workQueue.Get()
+
 	if shutdown {
 		return false
 	}
@@ -242,44 +247,6 @@ func (c *Controller) updateSabbirStatus(sabbir *controllerv1.Sabbir, deployment 
 		fmt.Println("Error fetching custom resource:", err)
 	}
 	fmt.Println("now sabbir.Spec.Replicas: ", *sabbir.Spec.Replicas)
-
-	return err
-}
-
-func (c *Controller) updateSabbirStatustest(sabbir *controllerv1.Sabbir, deployment *appsv1.Deployment) error {
-
-	sabbirCopy := sabbir.DeepCopy()
-	fmt.Println("SabbirCopy.Status.AvailableReplicas: ", sabbirCopy.Status.AvailableReplicas)
-	fmt.Println("deployment.Status.AvailableReplicas: ", deployment.Status.AvailableReplicas)
-	sabbirCopy.Status.AvailableReplicas = deployment.Status.AvailableReplicas
-
-	var x int32 = int32(rand.Intn(10))
-	var y int32 = int32(rand.Intn(10))
-	fmt.Println("x : ", x, " y : ", y)
-	deployment.Spec.Replicas = &x
-
-	deployment.Status.Replicas = y + 4
-
-	deploymentCopy := deployment.DeepCopy()
-	deploymentCopy.Spec.Replicas = &y // or any new value for replicas
-	_, err := c.kubeclientset.AppsV1().Deployments(sabbir.Namespace).Update(context.TODO(), deploymentCopy, metav1.UpdateOptions{})
-	if err != nil {
-		log.Println("Failed to update Deployment:", err)
-		return err
-	}
-
-	fmt.Println("deployment.Spec.Replicas: ", *deployment.Spec.Replicas)
-	fmt.Println("deployment.Status.Replicas ", deployment.Status.Replicas)
-
-	//fmt.Println("sabbir.Spec.Replicas: ", *sabbir.Spec.Replicas)
-	sabbir.Status.AvailableReplicas = y
-
-	//fmt.Println("sabbir.Status.AvailableReplicas: ", sabbir.Status.AvailableReplicas)
-	//sabbirCopy.Spec.Replicas = &y
-	_, err = c.sampleclientset.CrdV1().Sabbirs(sabbir.Namespace).Update(context.TODO(), sabbirCopy, metav1.UpdateOptions{})
-
-	fmt.Println("sabbir.Status.AvailableReplicas: ", sabbir.Status.AvailableReplicas)
-	fmt.Println("sabbirCopy.Status.AvailableReplicas: ", sabbirCopy.Status.AvailableReplicas)
 
 	return err
 }
