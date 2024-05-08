@@ -222,19 +222,19 @@ func (c *Controller) syncHandler(key string) error {
 
 func (c *Controller) updateSabbirStatus(sabbir *controllerv1.Sabbir, deployment *appsv1.Deployment) error {
 	time.Sleep(time.Second * 10)
-	// sb, err := c.sampleclientset.CrdV1().Sabbirs(sabbir.Namespace).Get(context.TODO(), sabbir.Name, metav1.GetOptions{})
+	sb, err := c.sampleclientset.CrdV1().Sabbirs(sabbir.Namespace).Get(context.TODO(), sabbir.Name, metav1.GetOptions{})
 
-	//sb.TypeMeta.Kind = "Sabbir"
-	//sb.TypeMeta.APIVersion = "crd.com/v1"
-	sabbirCopy := sabbir.DeepCopy()
+	sb.TypeMeta.Kind = "Sabbir"
+	sb.TypeMeta.APIVersion = "crd.com/v1"
+	sabbirCopy := sb.DeepCopy()
 	//sabbirCopy.Spec.Replicas = deployment.Spec.Replicas
 	var y int32 = int32(rand.Intn(10))
 	sabbirCopy.Spec.Replicas = &y
 	klog.Infoln("kind :", sabbir.Kind)
 
-	_, err := c.sampleclientset.CrdV1().Sabbirs(sabbir.Namespace).Update(context.TODO(), sabbirCopy, metav1.UpdateOptions{})
+	_, err = c.sampleclientset.CrdV1().Sabbirs(sabbir.Namespace).Update(context.TODO(), sabbirCopy, metav1.UpdateOptions{})
 	fmt.Println("sabbirCopy.Spec.Replicas: ", *sabbirCopy.Spec.Replicas)
-	fmt.Println("sabbir.Spec.Replicas: ", *sabbir.Spec.Replicas)
+	fmt.Println("sb.Spec.Replicas: ", *sb.Spec.Replicas)
 	fmt.Println("update err: ", err)
 
 	sabbir, err = c.sampleclientset.CrdV1().Sabbirs(sabbir.Namespace).Get(context.TODO(), "sabbir", metav1.GetOptions{})
